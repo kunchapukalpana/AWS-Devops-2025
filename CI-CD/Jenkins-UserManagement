@@ -8,6 +8,8 @@
 
 ...................................................................................
 ##create user using script 
+to create user through script -> jenkins should use jenkisn own database.
+*manage jenkins - >Security->Security Realm -> Jenkins Own use database
 #Open Jenkins in your browser    http://<your-server>:8080/script
 #Paste and run this code:
 
