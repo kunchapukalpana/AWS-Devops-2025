@@ -1,0 +1,143 @@
+-> You will create on Ec2 instance according your requirments
+-> Later you will execute the all the below scripts
+-> Install Jenkins Using Below script
+sudo apt-get update -y
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install fontconfig openjdk-17-jre
+sudo apt-get install jenkins -y
+
+
+-> Install Docker using Below script
+# Install Docker
+# Add Docker's official GPG key
+sudo apt-get update -y
+sudo apt-get install ca-certificates curl -y
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add Docker repository
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+  https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo chmod 666 /var/run/docker.sock
+sudo usermod -aG docker jenkins
+sudo usermod -aG docker ubuntu
+sudo systemctl enable docker
+sudo systemctl start docker
+echo "Docker installation complete."
+
+
+-> Install Maven using Below script
+# Install Maven
+# Maven will be updated automatically by the package manager
+sudo apt-get update -y
+sudo apt-get install maven -y
+mvn -version
+echo "Maven installation complete."
+
+
+-> Install Trivy using Below script
+# Install Trivy-Scanner
+sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
+echo "Trivy installation complete."
+
+
+-> Install npm using Below script
+sudo apt-get update -y
+sudo apt install npm -y
+echo "NPM installation complete"
+
+
+-> Install Sonar-Qube using Below script
+# Install SonarQube
+# Install unzip if not already installed
+sudo apt-get install unzip -y
+
+# Create a user for SonarQube
+sudo adduser --disabled-password --gecos 'SonarQube' sonarqube
+
+# Switch to SonarQube user and install SonarQube
+sudo su - sonarqube <<EOF
+# Fetch the latest SonarQube version from the official source
+SONARQUBE_VERSION=$(curl -s https://api.github.com/repos/SonarSource/sonarqube/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+SONARQUBE_URL="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONARQUBE_VERSION}.zip"
+
+# Download and extract SonarQube
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+unzip sonarqube-9.4.0.54424.zip
+chmod -R 755 /home/sonarqube/sonarqube-9.4.0.54424
+# Change ownership
+chown -R sonarqube:sonarqube /home/sonarqube/sonarqube-9.4.0.54424
+# Start SonarQube
+cd sonarqube-9.4.0.54424/bin/linux-x86-64/
+./sonar.sh start
+EOF
+
+echo "Sonarqube installation complete."
+
+
+
+-> After you install above scripts and log into the jenkins
+-> You have to install the below plugins
+    -> Pipeline stage View
+    -> Docker
+    -> Docker pipeline
+    -> SonarQube scanner
+    -> SonarQube Quality gate
+    -> Quality gate
+    -> Nodejs
+    -> OWASP Dependency-Check
+    -> Email-extension plugin
+    -> Kubernetes
+    -> Kuberntes Client API
+    -> Kubernetes Credentials plugin
+    -> Kubernetes CLI
+    -> Kubernetes Credentials Provider
+    -> Kubernetes plugin
+    -> AWS Steps
+    -> AWS Credentials
+    -> Bitbucket
+
+-> You will restart the Jenkins after install the plugins( If necessary )
+-> Go to manage Jenkins, click credentials and cofigure below credentials
+    docker -> Click username and password, Give username and password and give id name
+    Sonarube -> Click secret, Give token which you created in sonarqube and give id name (to get sonarsecret -> sonarqube dashboard ->Administartion ->Security->users->generate new token)
+    Git -> Click username and password, give username and token which you created in github, give id name(for git password we need to create git token -> git settings ->developer settings->Personal access tokens -->Token Classic ->generate new token Classic .)
+    Email -> Click username and password, Give mail-id and email token [To get this email-token you have to go gmail, click manage google account
+                  click security and search App password in search bar and click app password and give one name and create
+    AWS-> Click AwS, Give access key and secret key
+
+-> Go to manage Jenkins, click configuration tools and install below tools
+   JDK-17, Click automatically install, Click Install from adoptium.net and choose latest version
+   JDK-11, Click automatically install, Click Install from adoptium.net and choose latest version
+   Git, Keep it default
+   ** Sonar-scanner,  provide tool name (sonar1which we need to provide this name in ipeline) Click install automatically, Choose latest version
+   Nodejs, Give name, Click install automatically
+   Dependency check click install automatically and click Install from github.com and choose latest version
+   Maven, Give name, Click install automatically and choose latest version 
+   Docker, Give name Click install automatically and choose latest version
+
+-> After complete to configure the global setting(System)  later click the system configuration
+   *SonarQube servers -> Give name , Give the Sonar-qube URL and choose the soanr-token credentials id which you have created in credentials
+   ** Extended Email Notification -> Give smtp.gmail.com, Give 465 port, Click Advanced choose mail-id which you created in credentals, Click use SSL
+  ** Email Notification -> Give smtp.gmail.com, click advanced, Give mail and email token which you created before in gmail.
+
+-> To set up the sonar-quality gate. Go to sonarqube, click administation, click configuration, click webhook and give jenkins URL 
+       http://54.198.209.63:8080/sonarqube-webhook
+
+- GIT Webhook -Go to github project repo - >settings - left side u can find webhook->add webhook -> add payload url (http://54.234.254.112:8080/github-webhook/)->content type choose application/json -click add webhook.  (in jenkins project enable "GitHub hook trigger for GITScm polling
+" in triggers section.)
