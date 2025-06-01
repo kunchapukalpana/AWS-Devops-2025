@@ -2,5 +2,32 @@
 
 2.How to create groups/roles in jenkins
 
+
+
 3.how to create users in jekins servers
 
+...................................................................................
+##create user using script 
+#Open Jenkins in your browser    http://<your-server>:8080/script
+#Paste and run this code:
+
+
+import jenkins.model.*
+import hudson.security.*
+
+def instance = Jenkins.getInstance()
+def realm = instance.getSecurityRealm()
+
+if (realm instanceof HudsonPrivateSecurityRealm) {
+    if (realm.getUser("kalpana") == null) {
+        realm.createAccount("kalpana", "test123")
+        instance.save()
+        println("✅ User 'kalpana' created successfully.")
+    } else {
+        println("ℹ️ User 'kalpana' already exists.")
+    }
+} else {
+    println("❌ Jenkins is not using the internal user database.")
+}
+
+...............................................................
