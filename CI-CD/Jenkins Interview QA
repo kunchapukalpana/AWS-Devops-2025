@@ -53,3 +53,106 @@ Few Scenario Based DevOps interview Questions
 6.     You have to roll back a deployment after a failed update in Kubernetes. What strategy would you use, and how would you implement it?
 7.     Your Jenkins job triggers on every commit but developers complain it's causing slowdowns. How would you optimize the CI/CD workflow?
 8.     Your Docker image size has grown considerably and is slowing down your build and deployment process. What steps would you take to reduce it?
+
+
+1. AWS (Amazon Web Services)
+	1.	How do you implement a multi-account AWS architecture using AWS Organizations and Control Tower?
+	2.	Explain the working of AWS Transit Gateway and how it simplifies networking in a multi-VPC environment.
+	3.	Describe a scenario where you used AWS Step Functions to orchestrate a complex workflow.
+	4.	How do you manage IAM roles for cross-account access in an enterprise-scale AWS environment?
+	5.	What are the key differences between AWS Systems Manager Parameter Store and AWS Secrets Manager?
+	6.	How do you optimize EC2 Auto Scaling policies for cost efficiency and performance?
+	7.	Explain the difference between AWS Global Accelerator, CloudFront, and Route 53 latency-based routing.
+	8.	How do you handle AWS Lambda cold starts, and what strategies have you used to optimize them?
+	9.	Describe a disaster recovery strategy you implemented using AWS Backup, RDS Multi-AZ, and S3 Cross-Region Replication.
+	10.	What security best practices do you follow when implementing AWS Security Hub, GuardDuty, and AWS Macie?
+2. Jenkins
+	1.	How do you scale Jenkins in a highly available setup using multiple Jenkins agents?
+	2.	What is the difference between Jenkins Master-Slave Architecture and Cloud-Native Jenkins (Jenkins X)?
+	3.	How do you optimize Jenkins builds to run faster using parallel execution and caching mechanisms?
+	4.	Explain how you implemented multi-branch pipelines in Jenkins for a microservices project.
+	5.	What are some security best practices you follow in Jenkins regarding plugin management and credentials storage?
+	6.	How do you set up Infrastructure as Code (IaC) deployments in Jenkins using Terraform or CloudFormation?
+	7.	Explain the difference between Declarative Pipelines and Scripted Pipelines in Jenkins.
+	8.	How do you handle dynamic provisioning of Jenkins agents in Kubernetes?
+	9.	How do you implement Blue-Green Deployment or Canary Releases using Jenkins pipelines?
+	10.	How do you integrate Jenkins with HashiCorp Vault for secret management?
+3. Terraform
+	1.	How do you manage state locking and concurrent modifications in Terraform?
+	2.	Explain the use of Terraform workspaces in managing different environments.
+	3.	How do you handle drift detection in Terraform-managed infrastructure?
+	4.	What are Terraform modules, and how do you structure them for reusability?
+	5.	How do you use Terraform with AWS Service Control Policies (SCPs) in an enterprise setting?
+	6.	How do you integrate Terraform with CI/CD pipelines, and what are best practices for managing Terraform changes?
+	7.	How do you handle secret management in Terraform when working with AWS resources?
+	8.	Explain the difference between Terraform remote backends (S3, Consul, Terraform Cloud).
+	9.	How do you refactor a large Terraform codebase to improve maintainability?
+	10.	How do you implement custom Terraform providers?
+4. Ansible
+	1.	How do you structure an Ansible playbook for managing a large-scale infrastructure?
+	2.	Explain how Ansible idempotency works and how you ensure it in your roles.
+	3.	What are Ansible facts, and how have you used them in a real-world scenario?
+	4.	How do you manage dynamic inventories in Ansible?
+	5.	Explain the difference between Ansible Roles vs. Playbooks, and when you use each.
+	6.	How do you implement error handling and retries in an Ansible playbook?
+	7.	How do you integrate Ansible with AWS, and what AWS modules have you used?
+	8.	How do you ensure security in Ansible, especially when dealing with sensitive credentials?
+	9.	How do you optimize Ansible performance for large-scale configurations?
+	10.	How do you use Ansible AWX (or Tower) for enterprise-wide automation?
+5. Maven
+	1.	How does Maven handle dependency management, and how do you avoid conflicts?
+	2.	What is the difference between Maven snapshot versions and release versions?
+	3.	Explain the purpose of the Maven Lifecycle Phases.
+	4.	How do you configure a Maven multi-module project for large-scale applications?
+	5.	How do you integrate Maven with Jenkins and SonarQube for static code analysis?
+	6.	How do you optimize Maven build performance for faster artifact resolution?
+	7.	What is the use of the Maven Shade Plugin, and when would you use it?
+	8.	How do you handle Maven profiles for different environments?
+	9.	What is the difference between Maven Central Repository and Nexus/Artifactory?
+	10.	How do you create a custom Maven Plugin, and when would you use one?
+6. Git
+	1.	How do you resolve merge conflicts in a large-scale Git repository?
+	2.	What are the differences between Git Rebase, Merge, and Cherry-Pick?
+	3.	How do you implement GitOps in a Kubernetes-based deployment?
+	4.	How do you manage Git branches in a large team with multiple feature developments?
+	5.	What is the difference between Git shallow cloning and full cloning?
+	6.	How do you secure Git repositories against unauthorized access?
+	7.	How do you implement Git hooks for enforcing code quality?
+	8.	What is the impact of Git Large File Storage (LFS) on repository performance?
+	9.	How do you optimize Git workflows for high-performance CI/CD pipelines?
+	10.	How do you handle Git repository migration from one provider to another?
+7. Linux
+	1.	Explain the difference between process vs. thread management in Linux.
+	2.	How do you troubleshoot high CPU or memory usage in Linux?
+	3.	Explain the purpose of the Linux kernel tuning parameters in /proc/sys for performance optimization.
+	4.	How do you implement secure SSH authentication using keys and disable password login?
+	5.	What are cgroups and namespaces, and how do they relate to containers?
+	6.	How do you use strace and lsof to debug Linux system issues?
+	7.	How do you secure a Linux server against unauthorized access?
+	8.	Explain inode usage in Linux and how to resolve “No space left on device” errors.
+	9.	What is the impact of swappiness in Linux, and how do you configure it?
+	10.	How do you set up automated log rotation for system logs?
+8. Docker
+	1.	What is the difference between Docker ENTRYPOINT and CMD?
+	2.	How do you optimize Docker images for faster builds and smaller sizes?
+	3.	How do you secure a Docker container against vulnerabilities?
+	4.	Explain Docker multi-stage builds, and when should you use them?
+	5.	How do you configure Docker networking in a multi-container environment?
+	6.	How do you manage persistent storage in Docker?
+	7.	How do you use Docker Compose vs. Kubernetes, and when should you use each?
+	8.	What is the difference between Docker Swarm and Kubernetes?
+	9.	How do you handle container orchestration at scale?
+	10.	How do you integrate Docker with CI/CD pipelines?
+9. Kubernetes
+	1.	How do you manage RBAC (Role-Based Access Control) in Kubernetes?
+	2.	How do you handle zero-downtime deployments in Kubernetes?
+	3.	Explain Horizontal Pod Autoscaler vs. Vertical Pod Autoscaler.
+	4.	How do you configure network policies in Kubernetes?
+	5.	How do you use Kubernetes Operators, and when would you create a custom one?
+	6.	How do you secure Kubernetes secrets and config maps?
+	7.	How do you troubleshoot Kubernetes networking issues?
+	8.	How do you handle Kubernetes cluster upgrades with minimal downtime?
+	9.	How do you monitor Kubernetes logs and metrics using Prometheus/Grafana?
+	10.	How do you implement disaster recovery for a Kubernetes cluster?
+
+
