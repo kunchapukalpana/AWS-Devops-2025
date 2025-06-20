@@ -156,3 +156,22 @@ Few Scenario Based DevOps interview Questions
 	10.	How do you implement disaster recovery for a Kubernetes cluster?
 
 
+2025/06/20
+.........
+
+Kuberenetes 
+  1.Which Kubernetes component is used to automatically scale the number of pods based on traffic or resource usage?
+(Answer: Horizontal Pod Autoscaler)
+ What are the default metrics used by the Horizontal Pod Autoscaler to scale pods?
+(Answer: CPU utilization)
+What is the difference between Horizontal Pod Autoscaler and Vertical Pod Autoscaler?
+
+Can Kubernetes automatically add more nodes when traffic increases? If yes, how?
+
+(Answer: Yes, using Cluster Autoscaler)
+2. what is resource and limits in kuberentes ,difference 
+3. write docker file 
+
+
+
+
