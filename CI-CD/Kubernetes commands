@@ -1,0 +1,8 @@
+1.create an aimage using pod definition yaml fiel.
+
+kubectl run redis --image=redis --dry-run -o yaml - this depricated dry-run
+kubectl run redis --image=redis --dry-run=client  -o yaml
+kubectl run redis --image=redis --dry-run=client  -o yaml >redis.yaml
+
+
+
