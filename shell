@@ -1,1 +1,23 @@
 df -h | awk 'NR>1 {print $5}'
+
+####disk usage 
+#!/bin/bash
+
+df -h | awk 'NR>1 {
+  gsub("%","",$5)
+  if ($5 > 23)
+    print "ALERT:", $1, "usage", $5"% mounted on", $6
+}'
+
+
+///////////////////////
+
+another way         In awk, each statement must be separated by semicolon ; 
+#!/bin/bash                        |
+df -h | awk 'NR>1 { gsub("%","",$5); if ($5 > 25) print $1, "usage", $5"%", "which exceeds 25%" }'
+
+
+cpu usage c
+------------
+
+
