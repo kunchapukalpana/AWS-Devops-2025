@@ -1,0 +1,28 @@
+Case 1 – ImagePullBackOff due to disk full
+
+Recently, after a Kubernetes deployment, some pods went into ImagePullBackOff state. When we investigated the issue,
+we found that the node disk was full because many old and unused container images were present on the node.
+Since there was no free disk space, Kubernetes could not pull the new image from the registry. 
+As an immediate fix, we logged into the affected node and removed the unused images to free up disk space. 
+To prevent this issue from happening again, we standardized the imagePullPolicy based on the environment.
+In development, we used Always so the latest image is pulled every time, and in production, we used IfNotPresent so cached images are reused when available.
+We also enabled kubelet image garbage collection to automatically clean up old images. After these changes, we did not face this issue again.
+
+Case 2 – Node NotReady due to kubelet OOM
+
+In one of the production incidents, a Kubernetes node suddenly went into NotReady state. 
+During investigation, we found that a pod was running on the node without proper CPU and memory requests and limits. 
+This pod consumed most of the node resources, which caused the node to run out of memory, and as a result, the kubelet process was killed due to an OOM condition.
+To fix the issue immediately, we identified and deleted the problematic pod and restarted the kubelet service, after which the node became ready again. 
+To avoid this situation in the future, we enforced mandatory CPU and memory requests and limits for all pods so that pods without defined limits are not allowed to run. 
+This helped stabilize the nodes and prevent similar issues.
+
+Case 3 – CrashLoopBackOff due to health probe failure
+
+During a rollout in a non-production environment, we noticed that new pods were going into CrashLoopBackOff while old pods were still pending.
+After checking the pod logs and events, we found that the liveness and readiness probes were failing.
+The root cause was that we had added new features and plugins to the application, which increased the application startup time, but the health probe timings were not updated accordingly.
+Because the probes ran too early, Kubernetes kept restarting the containers.
+To resolve this, we increased the probe timings such as initialDelaySeconds and adjusted the timeout values to give the application enough time to start. 
+After updating the probe configuration, the rollout completed successfully and the pods became stable.
+
