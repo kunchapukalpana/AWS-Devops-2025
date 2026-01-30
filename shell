@@ -18,6 +18,23 @@ df -h | awk 'NR>1 { gsub("%","",$5); if ($5 > 25) print $1, "usage", $5"%", "whi
 
 
 cpu usage c
-------------
+-----------
+
+top -bn1 | grep "Cpu(s)" | awk '{print 100 -$8}'
+
+//////////////////////////////////
+
+#!/bin/bash
+
+cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+
+cpu_usage=${cpu_usage%.*}
+if [ "$cpu_usage" -gt 3 ]; then
+  echo "$cpu_usage  is reched 3"
+
+fi
+echo $cpu_usage
+~                                                                                                              
+~                 
 
 
