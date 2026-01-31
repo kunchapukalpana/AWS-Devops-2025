@@ -15,7 +15,7 @@ During investigation, we found that a pod was running on the node without proper
 This pod consumed most of the node resources, which caused the node to run out of memory, and as a result, the kubelet process was killed due to an OOM condition.
 To fix the issue immediately, we identified and deleted the problematic pod and restarted the kubelet service, after which the node became ready again. 
 To avoid this situation in the future, we enforced mandatory CPU and memory requests and limits for all pods so that pods without defined limits are not allowed to run. 
-This helped stabilize the nodes and prevent similar issues.
+so, in this way we stabilize the nodes and prevent similar issues.
 
 Case 3 – CrashLoopBackOff due to health probe failure
 
